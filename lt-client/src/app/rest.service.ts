@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { environment} from "../environments/environment";
 import { HttpClient, HttpClientJsonpModule,HttpErrorResponse } from "@angular/common/http";
 import {lastValueFrom, Observable, tap} from 'rxjs';
+import {LtConfig} from "./lt-config";
+import ltConfigJson from '../assets/config.json'
+const ltConfig: LtConfig = ltConfigJson;
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
 
-  public backendUrl = environment.backendUrl;
+  public backendUrl = ltConfig.backendUrl;
 
   constructor(private http: HttpClient) { }
 

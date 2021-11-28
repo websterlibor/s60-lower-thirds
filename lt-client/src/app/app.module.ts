@@ -52,8 +52,11 @@ import { MomentModule } from 'ngx-moment';
 import { DateComponent } from './date/date.component';
 import { LtKeyComponent } from './lt-key/lt-key.component';
 import { environment } from './../environments/environment';
+import {LtConfig} from "./lt-config";
+import ltConfigJson from '../assets/config.json'
+const ltConfig: LtConfig = ltConfigJson;
 
-const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
+const configSocket: SocketIoConfig = { url: ltConfig.backendUrl, options: {} };
 
 const materialModules = [
   MatToolbarModule,
@@ -109,7 +112,7 @@ const materialModules = [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    SocketIoModule.forRoot(config),
+    SocketIoModule.forRoot(configSocket),
     NgJsonEditorModule,
     FormsModule,
     ReactiveFormsModule,
