@@ -1,7 +1,7 @@
 <div class="{{getPositionStyle()}}"
      style="{{getBgColor()}}"
      (dblclick)="changeFullscren()" >
-  <div  *ngIf="show()" @fadeInOut
+  <div  *ngIf="show()"
         class="lt-content w-auto {{test ? 'mt-2' : ''}}"
         style="{{getPositionMarginStyle(test)}}
             {{getZoom()}}
