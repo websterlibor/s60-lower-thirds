@@ -17,10 +17,6 @@ const websockets_1 = require("@nestjs/websockets");
 const rxjs_1 = require("rxjs");
 const socket_io_1 = require("socket.io");
 let LtGateway = class LtGateway {
-    send(test) {
-        this.server.emit('events', test);
-        this.server.send(test);
-    }
     sendToPreview(data) {
         this.server.emit('preview', data);
     }

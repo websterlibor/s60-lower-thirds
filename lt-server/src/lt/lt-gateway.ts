@@ -18,11 +18,6 @@ export class LtGateway {
     @WebSocketServer()
     server: Server;
 
-    send(test: string) {
-        this.server.emit('events', test);
-        this.server.send(test);
-    }
-
 
     sendToPreview(data: any) {
         this.server.emit('preview', data);

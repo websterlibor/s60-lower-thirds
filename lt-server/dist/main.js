@@ -146,10 +146,6 @@ const websockets_1 = __webpack_require__(8);
 const rxjs_1 = __webpack_require__(9);
 const socket_io_1 = __webpack_require__(10);
 let LtGateway = class LtGateway {
-    send(test) {
-        this.server.emit('events', test);
-        this.server.send(test);
-    }
     sendToPreview(data) {
         this.server.emit('preview', data);
     }
@@ -235,10 +231,6 @@ let LtController = class LtController {
     constructor(ltGateway) {
         this.ltGateway = ltGateway;
     }
-    sendMessage() {
-        this.ltGateway.send('ahoj');
-        return "sent";
-    }
     async preview(data) {
         this.ltGateway.sendToPreview(data);
         return data;
@@ -247,17 +239,7 @@ let LtController = class LtController {
         this.ltGateway.sendToPublic(data);
         return data;
     }
-    testPreview() {
-        this.ltGateway.sendToPreview('ahoj');
-        return "test preview";
-    }
 };
-__decorate([
-    (0, common_1.Get)('send'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], LtController.prototype, "sendMessage", null);
 __decorate([
     (0, common_1.Post)('preview'),
     __param(0, (0, common_1.Body)()),
@@ -272,14 +254,8 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], LtController.prototype, "public", null);
-__decorate([
-    (0, common_1.Get)('test-preview'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], LtController.prototype, "testPreview", null);
 LtController = __decorate([
-    (0, common_1.Controller)('lt'),
+    (0, common_1.Controller)('/'),
     __metadata("design:paramtypes", [typeof (_a = typeof lt_gateway_1.LtGateway !== "undefined" && lt_gateway_1.LtGateway) === "function" ? _a : Object])
 ], LtController);
 exports.LtController = LtController;

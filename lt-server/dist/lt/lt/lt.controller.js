@@ -19,10 +19,6 @@ let LtController = class LtController {
     constructor(ltGateway) {
         this.ltGateway = ltGateway;
     }
-    sendMessage() {
-        this.ltGateway.send('ahoj');
-        return "sent";
-    }
     async preview(data) {
         this.ltGateway.sendToPreview(data);
         return data;
@@ -31,17 +27,7 @@ let LtController = class LtController {
         this.ltGateway.sendToPublic(data);
         return data;
     }
-    testPreview() {
-        this.ltGateway.sendToPreview('ahoj');
-        return "test preview";
-    }
 };
-__decorate([
-    (0, common_1.Get)('send'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], LtController.prototype, "sendMessage", null);
 __decorate([
     (0, common_1.Post)('preview'),
     __param(0, (0, common_1.Body)()),
@@ -56,14 +42,8 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], LtController.prototype, "public", null);
-__decorate([
-    (0, common_1.Get)('test-preview'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], LtController.prototype, "testPreview", null);
 LtController = __decorate([
-    (0, common_1.Controller)('lt'),
+    (0, common_1.Controller)('/'),
     __metadata("design:paramtypes", [lt_gateway_1.LtGateway])
 ], LtController);
 exports.LtController = LtController;
