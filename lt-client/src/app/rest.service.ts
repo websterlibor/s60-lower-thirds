@@ -5,13 +5,14 @@ import {lastValueFrom, Observable, tap} from 'rxjs';
 import {LtConfig} from "./lt-config";
 import ltConfigJson from '../assets/config.json'
 const ltConfig: LtConfig = ltConfigJson;
+import {ConfigService} from "./config.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
 
-  public backendUrl = ltConfig.backendUrl;
+  public backendUrl = ConfigService.config.backendUrl;
 
   constructor(private http: HttpClient) { }
 

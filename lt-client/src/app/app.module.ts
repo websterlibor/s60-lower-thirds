@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -52,11 +52,8 @@ import { MomentModule } from 'ngx-moment';
 import { DateComponent } from './date/date.component';
 import { LtKeyComponent } from './lt-key/lt-key.component';
 import { environment } from './../environments/environment';
-import {LtConfig} from "./lt-config";
-import ltConfigJson from '../assets/config.json'
-const ltConfig: LtConfig = ltConfigJson;
+import {ConfigService} from "./config.service";
 
-const configSocket: SocketIoConfig = { url: ltConfig.backendUrl, options: {} };
 
 const materialModules = [
   MatToolbarModule,
@@ -92,6 +89,13 @@ const materialModules = [
 
 
 ];
+
+export function initializeApp(configService: ConfigService) {
+  return (): Promise<any> => {
+    return configService.load();
+  }
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,7 +116,7 @@ const materialModules = [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    SocketIoModule.forRoot(configSocket),
+    SocketIoModule,
     NgJsonEditorModule,
     FormsModule,
     ReactiveFormsModule,
@@ -122,7 +126,10 @@ const materialModules = [
     CountdownModule,
     MomentModule
   ],
-  providers: [],
+  providers: [
+    ConfigService,
+    { provide: APP_INITIALIZER,useFactory: initializeApp, deps: [ConfigService], multi: true}
+  ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })

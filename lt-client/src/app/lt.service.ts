@@ -3,6 +3,7 @@ import { Socket,  } from 'ngx-socket-io';
 import { map } from 'rxjs/operators';
 import {Observable} from "rxjs";
 import {RestService} from "./rest.service";
+import {ConfigService} from "./config.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +11,19 @@ import {RestService} from "./rest.service";
 export class LtService {
   public previewData: any = {};
   public publicData: any = {};
+  public socket: Socket | undefined;
 
-  constructor(private socket: Socket,
-              public restService: RestService,) {
+  constructor(public restService: RestService,) {
+    this.socket = new Socket({ url: ConfigService.config.backendUrl, options: {} })
   }
 
   public subscribeToPreview() {
-
     return new Observable((observer) => {
+      // @ts-ignore
       this.socket.on('preview', function(data: any) {
         observer.next(data);
       });
     });
-
     //return this.socket.fromEvent('preview').pipe(map((data) => (<any>data).msg));
   }
 
@@ -33,6 +34,7 @@ export class LtService {
 
   public subscribeToPublic() {
     return new Observable((observer) => {
+      // @ts-ignore
       this.socket.on('public', function(data: any) {
         observer.next(data);
       });
