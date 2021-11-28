@@ -1,0 +1,18 @@
+<div class="row h-100 bg-dark">
+  <div class="col-1 text-center pt-2">
+    <button mat-raised-button color="info"
+            class="d-block m-auto mt-2 w-75"
+
+            cdkCopyToClipboard="{{getRawData()}}">
+      Copy
+    </button>
+    <button mat-raised-button color="warn" class="d-block m-auto mt-2 w-75" (click)="save()">
+      Save
+    </button>
+
+  </div>
+  <div class="col">
+    <json-editor [options]="options" [(ngModel)]="data"  style="min-height: 500px;" class="lt-edit"></json-editor>
+  </div>
+</div>
+

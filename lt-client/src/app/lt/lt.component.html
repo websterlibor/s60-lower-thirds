@@ -1,0 +1,36 @@
+<div class="{{getPositionStyle()}}"
+     style="{{getBgColor()}}"
+     (dblclick)="changeFullscren()" >
+  <div  *ngIf="show()" @fadeInOut
+        class="lt-content w-auto {{test ? 'mt-2' : ''}}"
+        style="{{getPositionMarginStyle(test)}}
+            {{getZoom()}}
+            {{getTransform()}}"
+  >
+    <div *ngFor="let line of data.lines" class="p-0 m-0">
+
+      <div
+         style="
+         {{getPaddingStyle(line)}}
+         {{getMarginStyle(line)}}
+         {{getFontFamilyStyle(line)}}
+         {{getFontStyleStyle(line)}}
+         {{getFontWeightStyle(line)}}
+         {{getTextAlignStyle(line)}}
+         {{getBgStyle(line)}}
+         {{getBorderStyle(line)}}
+         {{getBorderColorStyle(line)}}
+         {{getBorderRadiusStyle(line)}}
+         {{getColorStyle(line)}}
+         {{getOpacityStyle(line)}}
+         font-size: {{line.size}}"
+         class="w-{{line.width}} d-block">
+        <span *ngIf="line.type == 'text'" class="d-block">{{line.text}}</span>
+        <countdown *ngIf="line.type == 'countdown'" #cd [config]="{leftTime: line.countdown}" class="d-block "></countdown>
+        <app-clock *ngIf="line.type == 'time'"></app-clock>
+        <app-date *ngIf="line.type == 'date'"></app-date>
+      </div>
+    </div>
+  </div>
+
+</div>

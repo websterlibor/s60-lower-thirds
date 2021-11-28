@@ -1,0 +1,163 @@
+<div class="row mt-3">
+  <div class="col h-100" *ngIf="data">
+    <mat-card class="mb-2">
+      <div class="container overflow-hidden mb-2">
+        <app-lt [data]="data" [test]="true" [key]="false"></app-lt>
+      </div>
+    </mat-card>
+
+    <mat-accordion>
+      <mat-expansion-panel  expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="btn-primary rounded p-2">
+            General
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-form-field  appearance="fill" class="d-block">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" placeholder="Name"  [(ngModel)]="data.name" >
+        </mat-form-field>
+        <p class="row">
+
+          <mat-form-field appearance="standard" class="col-2 pt-2">
+            <mat-label>Position</mat-label>
+            <select matNativeControl  [(ngModel)]="data.position">
+              <option value="lb">Left bottom</option>
+              <option value="rb">Right bottom</option>
+              <option value="lt">Left top</option>
+              <option value="rt">Right top</option>
+              <option value="cm">Center</option>
+              <option value="ct">Center top</option>
+              <option value="cb">Center bottom</option>
+            </select>
+          </mat-form-field>
+          <mat-form-field  appearance="standard" class="col-1 pt-2">
+            <mat-label>Horizontal</mat-label>
+            <input matInput type="text" placeholder="Horizontal margin"  [(ngModel)]="data.horizontal">
+          </mat-form-field>
+          <mat-form-field  appearance="standard" class="col-1 pt-2">
+            <mat-label>Vertical</mat-label>
+            <input matInput type="text" placeholder="Vertical margin"  [(ngModel)]="data.vertical">
+          </mat-form-field>
+
+          <mat-form-field  appearance="standard" class="col-1 pt-2">
+            <mat-label>Duration</mat-label>
+            <input matInput type="number" placeholder="Duration"  [(ngModel)]="data.duration">
+          </mat-form-field>
+
+          <mat-form-field  appearance="standard" class="col-1">
+            <input matInput type="color" placeholder="Vertical margin" [(ngModel)]="data.bgColor">
+          </mat-form-field>
+
+
+          <mat-form-field  appearance="standard" class="col-1 pt-2">
+            <mat-label>Zoom</mat-label>
+            <input matInput type="number" placeholder="Zoom" step="10" [(ngModel)]="data.zoom">
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-2 pt-2">
+            <mat-label>Transform</mat-label>
+            <select matNativeControl  [(ngModel)]="data.transformType">
+              <option value="none">None</option>
+              <option value="rotate">Rotate</option>
+              <option value="skewY">Skew Y</option>
+              <option value="skewX">Skew X</option>
+            </select>
+          </mat-form-field>
+
+
+          <mat-form-field  appearance="standard" class="col-2 pt-2" *ngIf="['rotate','skewY','skewX'].includes(data.transformType)">
+            <mat-label>Degree</mat-label>
+            <input matInput type="number" placeholder="Degree" step="5" [(ngModel)]="data.transformDegree">
+          </mat-form-field>
+        </p>
+
+      </mat-expansion-panel>
+
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="btn-primary rounded p-2">
+            Lines
+
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="text-center">
+          <span mat-raised-button matTooltip="Přidat LT" (click)="addLine()" class="btn">
+            <mat-icon color="primary">add_circle_outline</mat-icon>
+          </span>
+        </div>
+        <mat-accordion>
+          <mat-expansion-panel
+            *ngFor="let line of data.lines let i = index " class="m-1">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="btn-secondary rounded p-2">
+                {{i}}. - {{line.type == 'text' ? line.text : line.type}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+
+              <app-lt-composer-line [data]="line"></app-lt-composer-line>
+              <p>
+                <span  class="btn p-0" matTooltip="Move line up" (click)="moveLine(i, $event); false" *ngIf="i > 0">
+                  <mat-icon color="primary">swap_vert</mat-icon>
+                </span>
+                <span  class="btn p-0" matTooltip="Copy line" (click)="copyLine(i, $event); false">
+                  <mat-icon color="primary">control_point_duplicate</mat-icon>
+                </span>
+                <span  class="btn p-0" matTooltip="Delete line" (click)="deleteLine(i, $event); false">
+                  <mat-icon color="warn">delete_outline</mat-icon>
+                </span>
+              </p>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+
+
+        <div class="text-center">
+          <span mat-raised-button matTooltip="Přidat LT" (click)="addLine()" class="btn">
+            <mat-icon color="primary">add_circle_outline</mat-icon>
+          </span>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="btn-primary rounded p-2">
+            JSON
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <json-editor [options]="options" [(ngModel)]="data"  style="min-height: 500px;" class="lt-edit"></json-editor>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+
+
+  </div>
+  <div class="col-3 pe-5">
+    <mat-card  class="position-fixed me-5 align-items-center p-2 ps-5">
+      <div class="">
+
+        <mat-radio-group  class="col-8 pt-4 mt-2"
+                          aria-label="Width"
+                          placeholder="Width"
+                          [(ngModel)]="type">
+          <mat-radio-button value="chroma" class="me-2">Chroma</mat-radio-button>
+          <mat-radio-button value="linear" class="me-2">Linear key</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" class="w-75 m-2" (click)="saveLt()">Save Lt</button>
+        <button mat-raised-button class="w-75 m-2" (click)="showPreview()">Show preview</button>
+        <button mat-raised-button class="w-75 m-2" (click)="hidePreview()">Hide preview</button>
+        <button mat-raised-button color="warn" class="w-75 m-2" (click)="showProgram()">Show program</button>
+        <button mat-raised-button color="warn"  class="w-75 m-2" (click)="hideProgram()">Hide program</button>
+
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+

@@ -1,0 +1,29 @@
+<div class="container h-100">
+  <div class="row align-items-center h-100">
+    <mat-card class="entry m-auto text-center">
+      <a mat-raised-button routerLink="/projects" class="d-block m-2 bg-primary">Composer</a>
+      <a mat-raised-button routerLink="/edit" class="d-block m-2 bg-danger">Raw edit</a>
+      <a mat-raised-button routerLink="/preview" class="d-block m-2 bg-warning">Preview</a>
+      <a mat-raised-button routerLink="/public" class="d-block m-2 bg-success">Public</a>
+      <a mat-raised-button routerLink="/key" class="d-block m-2 bg-success">Key</a>
+      <p class="mt-5">
+        <a cdkCopyToClipboard="firefox --kiosk http://localhost:4200/public"
+           class="btn border border-info w-100"
+           matRipple
+           matTooltip="Copy to clipboard">
+          firefox --kiosk http://localhost:4200/public
+          <mat-icon class="ms-3">exit_to_app</mat-icon>
+        </a>
+      </p>
+      <p class="mt-2">
+        <a cdkCopyToClipboard="chromium-browser -k --new-window --app {{getLocationHref()}}"
+           class="btn border border-info w-100"
+           matRipple
+           matTooltip="Copy to clipboard">
+          chromium-browser --kiosk --new-window --app {{getLocationHref()}}preview
+          <mat-icon class="ms-3">exit_to_app</mat-icon>
+        </a>
+      </p>
+    </mat-card>
+  </div>
+</div>

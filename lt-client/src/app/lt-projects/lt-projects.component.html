@@ -1,0 +1,94 @@
+<span mat-raised-button  class="position-absolute  btn" matTooltip="Open/close projects list">
+  <mat-icon  color="primary" (click)="sideNav = (sideNav ? false : true)"  color="primary" class="m-1">menu</mat-icon>
+</span>
+<div class="bg-light row h-100 w-100 ps-4">
+  <div class="col-2 h-100 overflow-auto bg-light"  *ngIf="sideNav">
+    <!-- projects start -->
+    <div class="w-100 text-center m-2" *ngIf="projects">
+        <span mat-raised-button class="btn" matTooltip="Add project" (click)="addProject()">
+          <mat-icon color="primary">add_circle_outline</mat-icon>
+        </span>
+
+      <span  mat-raised-button class="m-1 btn"  matTooltip="Export/import source"  routerLink="/edit" target="_blank">
+        <mat-icon color="primary">code</mat-icon>
+      </span>
+
+      <span mat-raised-button class="btn" matTooltip="Refresh" (click)="refreshProject()">
+          <mat-icon color="primary">refresh</mat-icon>
+        </span>
+    </div>
+
+    <mat-card *ngFor="let project of projects let i = index" (dblclick)="selectProject(i)" class="m-2 ms-3 btn {{i == activeProjectIndex ? 'bg-info' : ''}}">
+      <mat-card-title class="btn-primary rounded" matTooltip="Double click to open project">{{project.name}}</mat-card-title>
+      <mat-card-actions>
+
+        <span  class="btn p-0" matTooltip="Open project (Double click to open project)" (click)="selectProject(i); false">
+          <mat-icon color="primary">search</mat-icon>
+        </span>
+        <span  class="btn p-0" matTooltip="Rename project" (click)="renameProject(i, $event); false">
+          <mat-icon color="primary">launch</mat-icon>
+        </span>
+
+        <span  class="btn p-0" matTooltip="Move project up" (click)="moveProject(i)" *ngIf="i > 0">
+          <mat-icon color="primary">swap_vert</mat-icon>
+        </span>
+        <span  class="btn p-0" matTooltip="Copy project" (click)="copyProject(i)">
+          <mat-icon color="primary">control_point_duplicate</mat-icon>
+        </span>
+        <span  class="btn p-0" matTooltip="Delete project" (click)="deleteProject(i, $event); false">
+          <mat-icon color="warn">delete_outline</mat-icon>
+        </span>
+      </mat-card-actions>
+
+    </mat-card>
+    <!-- projects end -->
+  </div>
+  <div class="col-3 h-100 overflow-auto"  *ngIf="activeProjectIndex != null">
+    <!-- lts start -->
+    <div class="w-100 text-center m-2 mt-3">
+        <span mat-raised-button matTooltip="Přidat LT" class="btn" (click)="addLt()">
+          <mat-icon color="primary">add_circle_outline</mat-icon>
+        </span>
+    </div>
+    <div *ngIf="projects && activeProjectIndex != null" class="h-50">
+      <div  class="col-list-container container" >
+        <mat-card  *ngFor="let lt of projects[activeProjectIndex].lts let i = index" class="p-2 w-100 m-1 btn  {{i == activeLtIndex ? 'bg-info' : ''}}" (dblclick)="selectLt(i)">
+          <mat-card-title class="btn-primary rounded"  matTooltip="Double click to open project">
+            {{lt.name}}
+          </mat-card-title>
+
+          <div class="container overflow-hidden">
+            <app-lt [data]="lt" [test]="true"  [key]="false" style="zoom: 30%"></app-lt>
+          </div>
+          <mat-card-actions>
+
+          <span class="btn p-0" matTooltip="Open LT (Double click to open LT)" (click)="selectLt(i); false">
+            <mat-icon color="primary">search</mat-icon>
+          </span>
+          <span class="btn p-0" matTooltip="Move LT up" (click)="moveLt(i)" *ngIf="i > 0">
+            <mat-icon color="primary">swap_vert</mat-icon>
+          </span>
+          <span class="btn p-0" matTooltip="Copy LT" (click)="copyLt(i)">
+            <mat-icon color="primary">control_point_duplicate</mat-icon>
+          </span>
+          <span class="btn p-0" matTooltip="Delete LT" (click)="deleteLt(i, $event); false">
+            <mat-icon color="warn">delete_outline</mat-icon>
+          </span>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+    <!-- lts end -->
+  </div>
+  <div class="col h-100 overflow-auto bg-light"
+       *ngIf="projects && activeProjectIndex != null
+       && activeLtIndex != null
+       && projects[activeProjectIndex]
+       && projects[activeProjectIndex].lts[activeLtIndex]">
+    <!-- composer start -->
+    <div >
+      <app-lt-composer (updateParent)="saveLt($event)" [data]="projects[activeProjectIndex].lts[activeLtIndex]"></app-lt-composer>
+    </div>
+    <!-- composer end -->
+  </div>
+</div>

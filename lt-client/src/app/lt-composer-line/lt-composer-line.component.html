@@ -1,0 +1,175 @@
+<div *ngIf="data">
+  <p>
+    <mat-radio-group  class="col-8 pt-4 mt-2"
+                      aria-label="Width"
+                      placeholder="Width"
+                      [(ngModel)]="data.type">
+      <mat-radio-button value="text" class="me-2">Text</mat-radio-button>
+      <mat-radio-button value="countdown" class="me-2">Count down</mat-radio-button>
+      <mat-radio-button value="time" class="me-2">Time</mat-radio-button>
+      <mat-radio-button value="date" class="me-2">Date</mat-radio-button>
+    </mat-radio-group>
+
+  </p>
+  <div *ngIf="data.type == 'text'">
+    <mat-form-field  appearance="fill" class="d-block">
+      <mat-label>Text</mat-label>
+      <input matInput type="text" placeholder="Text"  [(ngModel)]="data.text" >
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="data.type == 'countdown'">
+    <mat-form-field  appearance="fill" class="d-block">
+      <mat-label>Seconds</mat-label>
+      <input matInput type="number" placeholder="Seconds"  [(ngModel)]="data.countdown" >
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <div class="col-4 border-end border-dark">
+
+      <mat-form-field  appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Opacity</mat-label>
+        <input matInput type="number" step="1" [(ngModel)]="data.opacity">
+      </mat-form-field>
+      <mat-form-field  appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Padding</mat-label>
+        <input matInput type="text" placeholder="Padding"  [(ngModel)]="data.padding">
+      </mat-form-field>
+      <mat-form-field  appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Margin</mat-label>
+        <input matInput type="text" placeholder="Margin"  [(ngModel)]="data.margin">
+      </mat-form-field>
+
+      <mat-radio-group  class="d-block p-0 m-0 mb-3"
+                        aria-label="Width"
+                        placeholder="Width"
+                        [(ngModel)]="data.width">
+        <mat-radio-button value="auto" class="mb-2 d-block">Auto</mat-radio-button>
+        <mat-radio-button value="100" class="mb-2 d-block">100%</mat-radio-button>
+        <mat-radio-button value="75" class="mb-2 d-block">75%</mat-radio-button>
+        <mat-radio-button value="50" class="mb-2 d-block">50%</mat-radio-button>
+        <mat-radio-button value="25" class="mb-2 d-block">25%</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="col-4 border-end border-dark">
+      <mat-form-field  appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Font size</mat-label>
+        <input matInput type="text" placeholder="Font size"  [(ngModel)]="data.size">
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Font family</mat-label>
+        <select matNativeControl  [(ngModel)]="data.font">
+          <option value="Arial, Helvetica, sans-serif">Arial</option>
+          <option value="'Brush Script MT', cursive">Brush Script MT</option>
+          <option value="Copperplate, Papyrus, fantasy">Copperplate</option>
+          <option value="'Courier New', Courier, monospace">Courier New</option>
+          <option value="Georgia, Verdana, sans-serif">Georgia</option>
+          <option value="Garamond, serif">Garamond</option>
+          <option value="Helvetica">Helvetica</option>
+          <option value="Tahoma, Verdana, sans-serif">Tahoma</option>
+          <option value="'Times New Roman', Times, serif">Times New Roman</option>
+          <option value="'Trebuchet MS', Helvetica, sans-serif">Trebuchet MS</option>
+          <option value="Verdana">Verdana</option>
+        </select>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Font style</mat-label>
+        <select matNativeControl  [(ngModel)]="data.style">
+          <option value="normal">Normal</option>
+          <option value="italic">Italic</option>
+          <option value="oblique">Oblique</option>
+        </select>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Text align</mat-label>
+        <select matNativeControl  [(ngModel)]="data.align">
+          <option value="left">Left</option>
+          <option value="right">Right</option>
+          <option value="center">Center</option>
+        </select>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Font weight</mat-label>
+        <select matNativeControl  [(ngModel)]="data.weight">
+          <option value="normal">Normal</option>
+          <option value="bold">Bold</option>
+          <option value="bolder">Bolder</option>
+          <option value="lighter">Lighter</option>
+          <option value="100">100</option>
+          <option value="200">200</option>
+          <option value="300">300</option>
+          <option value="400">400</option>
+          <option value="500">500</option>
+          <option value="600">600</option>
+          <option value="700">700</option>
+          <option value="800">800</option>
+          <option value="900">900</option>
+        </select>
+      </mat-form-field>
+
+      <mat-form-field  appearance="standard" class="d-block p-0 m-0">
+        <input matInput type="color"   [(ngModel)]="data.color">
+      </mat-form-field>
+    </div>
+
+    <div class="col-4">
+
+      <mat-form-field  appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Border</mat-label>
+        <input matInput type="text" placeholder="Border"  [(ngModel)]="data.border">
+      </mat-form-field>
+
+      <mat-form-field  appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Border color</mat-label>
+        <input matInput type="color" placeholder="Border color"  [(ngModel)]="data.borderColor">
+      </mat-form-field>
+
+      <mat-form-field  appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Border radius</mat-label>
+        <input matInput type="text" placeholder="Border radius"  [(ngModel)]="data.borderRadius">
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" class="d-block p-0 m-0">
+        <mat-label>Bacground type</mat-label>
+        <select matNativeControl required [(ngModel)]="data.bgType">
+          <option value="color">Color</option>
+          <option value="linear-gradient">Linear Gradients</option>
+          <option value="none">None</option>
+          <!--option value="image">Image</option-->
+        </select>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard" class="d-block p-0 m-0" *ngIf="data.bgType == 'linear-gradient'">
+        <mat-label>Gradient type</mat-label>
+        <select matNativeControl required [(ngModel)]="data.bgGradientDirection">
+          <option value="to right">To right</option>
+          <option value="to bottom">To bottom</option>
+          <option value="to bottom right">To bottom right</option>
+        </select>
+      </mat-form-field>
+
+      <mat-form-field  appearance="standard" class="d-block p-0 m-0" *ngIf="!['image','none'].includes(data.bgType)">
+        <input matInput type="color"  [(ngModel)]="data.bgColor">
+      </mat-form-field>
+
+      <mat-form-field  appearance="standard" class="d-block p-0 m-0" *ngIf="data.bgType == 'linear-gradient'">
+        <input matInput type="color"  [(ngModel)]="data.bgColor2">
+      </mat-form-field>
+
+
+      <mat-form-field  appearance="standard" class="d-block p-0 m-0" *ngIf="data.bgType == 'image'">
+        <mat-label>Image</mat-label>
+        <input matInput type="text" placeholder="Text size"  [(ngModel)]="data.bgImage">
+      </mat-form-field>
+    </div>
+  </div>
+
+
+
+</div>
